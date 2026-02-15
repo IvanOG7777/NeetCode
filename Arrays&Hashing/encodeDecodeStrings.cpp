@@ -14,12 +14,13 @@ public:
         for (auto &str : strs) {
             if (str == "") {
                 size_t currentLength  = 1;
-                std:: string joinedString = (std::to_string(currentLength) + "#") + str;
+                std:: string joinedString = (std::to_string(currentLength) + "#") + " ";
                 outString += joinedString;
-                break;
+                continue;
             }
             size_t currentLength = str.length();
             std:: string joinedString = (std::to_string(currentLength) + "#") + str;
+            std:: cout << joinedString << std::endl;
             outString += joinedString;
         }
 
@@ -35,6 +36,19 @@ public:
             if (s[i] == '#') seenFirstPound = true;
 
             if (seenFirstPound) {
+
+                if (s[i - 1] - '0' == 1 && (s[i + 1]) == ' ') {
+                    decodedStrings.push_back("");
+                    continue;
+                }
+                if (s[i - 1] - '0' == 0) {
+                    size_t substringLength = s[i - 2] - '0';
+                    substringLength += 10;
+                    std:: string substring = s.substr(i + 1, substringLength);
+                    decodedStrings.push_back(substring);
+                    i += substringLength;
+                    continue;
+                }
                 size_t substringLength = s[i - 1] - '0';
                 std:: string substring = s.substr(i + 1, substringLength);
                 decodedStrings.push_back(substring);
@@ -48,9 +62,10 @@ public:
 
 int main () {
     Solution solution;
-    std:: vector<std:: string> strs = {""};
+    std:: vector<std:: string> strs = {"The quick brown fox","jumps over the","lazy dog","1234567890","abcdefghijklmnopqrstuvwxyz"};
     std:: string encodedString = solution.encode(strs);
     std:: vector<std::string> decodedStrings = solution.decode(encodedString);
+    std:: cout << std::endl;
 
     std:: cout << encodedString << std::endl;
     std:: cout << std:: endl;
