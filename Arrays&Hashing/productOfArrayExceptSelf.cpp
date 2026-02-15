@@ -24,8 +24,8 @@ public:
         }
 
         for (size_t i = 0; i < n; i++) {
-            if (i - 1 == -1) {
-                output[i] = 1 * postfixNums[i];
+            if (i == 0) {
+                output[i] = 1 * postfixNums[i + 1];
                 continue;
             }
 
@@ -43,7 +43,7 @@ public:
 
 
 int main() {
-    std:: vector<int> nums = {4,3,2,1,2};
+    std:: vector<int> nums = {1,2,3,4};
     Solution s;
     size_t n = nums.size();
     std:: vector<int> prefixNums(n);
