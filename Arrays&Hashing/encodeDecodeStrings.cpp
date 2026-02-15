@@ -29,31 +29,28 @@ public:
 
     std:: vector<std:: string> decode(std:: string s) {
         std:: vector<std::string> decodedStrings;
+        std:: string stringNum;
         bool seenFirstPound = false;
+
         for (size_t i = 0; i < s.length(); i++) {
             seenFirstPound = false;
+
+            if (s[i] != '#') stringNum += s[i];
 
             if (s[i] == '#') seenFirstPound = true;
 
             if (seenFirstPound) {
-
-                if (s[i - 1] - '0' == 1 && (s[i + 1]) == ' ') {
-                    decodedStrings.push_back("");
-                    continue;
-                }
-                if (s[i - 1] - '0' == 0) {
-                    size_t substringLength = s[i - 2] - '0';
-                    substringLength += 10;
-                    std:: string substring = s.substr(i + 1, substringLength);
-                    decodedStrings.push_back(substring);
-                    i += substringLength;
-                    continue;
-                }
-                size_t substringLength = s[i - 1] - '0';
+                size_t substringLength = stoi(stringNum);
                 std:: string substring = s.substr(i + 1, substringLength);
-                decodedStrings.push_back(substring);
+                if (substring == " ") {
+                    decodedStrings.emplace_back("");
+                } else {
+                    decodedStrings.push_back(substring);
+                }
                 i += substringLength;
+                stringNum.clear();
             }
+
         }
 
         return decodedStrings;
@@ -62,7 +59,7 @@ public:
 
 int main () {
     Solution solution;
-    std:: vector<std:: string> strs = {"The quick brown fox","jumps over the","lazy dog","1234567890","abcdefghijklmnopqrstuvwxyz"};
+    std:: vector<std:: string> strs = {""};
     std:: string encodedString = solution.encode(strs);
     std:: vector<std::string> decodedStrings = solution.decode(encodedString);
     std:: cout << std::endl;
@@ -73,6 +70,4 @@ int main () {
     for (auto &str : decodedStrings) {
         std:: cout << str << std::endl;
     }
-
-
 }
