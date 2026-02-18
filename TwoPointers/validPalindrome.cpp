@@ -7,9 +7,9 @@
 class Solution {
 public:
     bool isPalindrome(std:: string &s) {
-        size_t left  = 0;
-        size_t right = s.size() - 1;
-        bool b_isPalindrome = false;
+        int left  = 0;
+        int right = s.size() - 1;
+        bool b_isPalindrome = true;
 
         if (s.empty()) {
             b_isPalindrome = true;
@@ -21,21 +21,17 @@ public:
             return b_isPalindrome;
         }
 
-        while (left < s.size()/2 && right > s.size()/2) {
+        while (left <= right) {
             char leftChar = s[left];
             char rightChar = s[right];
 
-            if (left == right  && leftChar == rightChar) {
-                return false;
-            }
 
-
-            if (!isalpha(leftChar)) {
+            if (!isalnum(leftChar)) {
                 left++;
                 continue;
             }
 
-            if (!isalpha(rightChar)) {
+            if (!isalnum(rightChar)) {
                 right--;
                 continue;
             }
@@ -51,22 +47,28 @@ public:
                 b_isPalindrome = false;
                 break;
             }
-
-            if (left == right) return false;
         }
         return b_isPalindrome;
     }
 };
 
-
 int main() {
-
     Solution sol;
-    std:: string s="mom";
-    bool b_isPalindrome = sol.isPalindrome(s);
+    std:: string s1 = "mom";
+    std:: string s2 = "0P";
+    std:: string s3 = "racecar";
+    std:: string s4 ="0Was it a car or a cat I saw0?";
+    std:: string s5 = "tab a cat";
+    std:: string s6 = "a.";
+    std:: string s7 = ".,";
+    std:: string s8 = "A Santa at NASA";
+    std:: string s9 = "0P";
+
+    bool b_isPalindrome = sol.isPalindrome(s4);
 
 
-    std:: cout << "Is string palindrome: " << (b_isPalindrome ? "True" : "False") << std:: endl;
+
+    std:: cout << "Is palindrome: " << b_isPalindrome << std::endl;
 
     return 0;
 }
