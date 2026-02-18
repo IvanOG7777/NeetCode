@@ -7,28 +7,26 @@
 #include <vector>
 
 class Solution {
-private:
-    std::unordered_set<int> unorderdSet;
-public:
-    int longestConsecutive(std:: vector<int>& nums) {
+    public:
+    int longestConsecutive(std::vector<int>& nums) {
         int longest = 0;
+        std::unordered_set<int> set;
         for (auto &num : nums) {
-            if (!unorderdSet.insert(num).second) {
-
-            }
+            set.insert(num);
         }
 
-        for (auto &num : nums) {
-            if (unorderdSet.find(num - 1) == unorderdSet.end()) {
+        for (auto &val : set) {
+            if (set.find(val - 1) == set.end()) {
                 int length = 0;
-                while (unorderdSet.find(num) != unorderdSet.end()) {
+                int num = val;
+                while (set.find(num) != set.end()) {
                     length++;
-                    num = num + 1;
+                    num++;
                 }
-                longest = std::max(longest, length);
+
+                longest = std:: max(longest, length);
             }
         }
-
         return longest;
     }
 };
@@ -56,7 +54,13 @@ public:
 int main() {
 
     Solution s;
-    std:: vector<int> nums {9,1,4,7,3,-1,0,5,8,-1,6};
+    std:: vector<int> nums {2,10,3,5,3,4,4,20};
+
+    int res = s.longestConsecutive(nums);
+
+    std:: cout << res << std::endl;
+
+    return 0;
 
     std:: unordered_set<int> subsequence;
     int result;
